@@ -1,6 +1,7 @@
 {
   "name": "skillivate-ai",
   "version": "0.1.0",
+  "description": "AI-powered personalized courses platform",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
