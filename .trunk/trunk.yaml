@@ -25,11 +25,11 @@ lint:
     - svgo@4.0.0
     - trufflehog@3.90.6
   disabled:
-    - checkov  # Disable if too noisy for frontend-only project
+    - checkov # Disable if too noisy for frontend-only project
 actions:
   disabled:
     - trunk-announce
   enabled:
     - trunk-upgrade-available
-    - trunk-check-pre-push  # Enable pre-push checks
-    - trunk-fmt-pre-commit  # Enable auto-formatting on commit
+    - trunk-check-pre-push # Enable pre-push checks
+    - trunk-fmt-pre-commit # Enable auto-formatting on commit

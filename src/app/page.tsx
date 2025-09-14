@@ -1,5 +1,10 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 export default function Home() {
   return (
@@ -15,15 +20,20 @@ export default function Home() {
           <div className="grid md:grid-cols-3 gap-6 mb-12">
             <Card>
               <CardHeader>
-                <CardTitle className="text-primary">AI-Powered Learning</CardTitle>
+                <CardTitle className="text-primary">
+                  AI-Powered Learning
+                </CardTitle>
                 <CardDescription>
-                  Personalized course recommendations based on your learning style and goals
+                  Personalized course recommendations based on your learning
+                  style and goals
                 </CardDescription>
               </CardHeader>
             </Card>
             <Card>
               <CardHeader>
-                <CardTitle className="text-primary">Adaptive Curriculum</CardTitle>
+                <CardTitle className="text-primary">
+                  Adaptive Curriculum
+                </CardTitle>
                 <CardDescription>
                   Dynamic content that adjusts to your progress and skill level
                 </CardDescription>
@@ -31,9 +41,12 @@ export default function Home() {
             </Card>
             <Card>
               <CardHeader>
-                <CardTitle className="text-primary">Real-time Feedback</CardTitle>
+                <CardTitle className="text-primary">
+                  Real-time Feedback
+                </CardTitle>
                 <CardDescription>
-                  Instant insights and guidance to accelerate your learning journey
+                  Instant insights and guidance to accelerate your learning
+                  journey
                 </CardDescription>
               </CardHeader>
             </Card>
@@ -46,9 +59,7 @@ export default function Home() {
               Learn More
             </Button>
           </div>
-          <p className="text-sm text-muted-foreground mt-8">
-            Coming soon...
-          </p>
+          <p className="text-sm text-muted-foreground mt-8">Coming soon...</p>
         </main>
       </div>
     </div>
