@@ -7,7 +7,16 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint . --ext .ts,.tsx --fix",
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check": "npm run type-check && npm run lint && npm run format:check",
+    "check:fix": "npm run lint:fix && npm run format",
+    "trunk:check": "trunk check",
+    "trunk:check:fix": "trunk check --fix",
+    "trunk:format": "trunk fmt"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",

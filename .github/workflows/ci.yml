@@ -1,0 +1,75 @@
+name: CI
+
+on:
+  push:
+    branches: [main, development]
+  pull_request:
+    branches: [main, development]
+
+jobs:
+  trunk-check:
+    name: Trunk Check
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Required for Trunk to work properly
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Install Trunk
+        run: |
+          curl -fsSL https://get.trunk.io | bash -s -- -y
+          echo "$HOME/.trunk/bin" >> $GITHUB_PATH
+      
+      - name: Run Trunk check
+        run: trunk check --all
+      
+      - name: Run Trunk format check
+        run: trunk fmt --check
+      
+      - name: Type check
+        run: npm run type-check
+      
+      - name: Lint check
+        run: npm run lint
+      
+      - name: Build check
+        run: npm run build
+
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Install Trunk
+        run: |
+          curl -fsSL https://get.trunk.io | bash -s -- -y
+          echo "$HOME/.trunk/bin" >> $GITHUB_PATH
+      
+      - name: Run security scans
+        run: |
+          trunk check osv-scanner trufflehog
