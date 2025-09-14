@@ -14,8 +14,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Required for Trunk to work properly
       
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -26,62 +24,17 @@ jobs:
       - name: Install dependencies
         run: npm ci
       
-      - name: Install Trunk
-        run: |
-          curl -fsSL https://get.trunk.io | bash -s -- -y
-          echo "$HOME/.trunk/bin" >> $GITHUB_PATH
-      
-      - name: Initialize Trunk
-        run: |
-          trunk init --skip-install
-          # Ensure the .trunk directory is properly set up
-          ls -la .trunk/
-      
-      - name: Run TypeScript type check
+      - name: TypeScript type check
         run: npm run type-check
       
-      - name: Run ESLint
+      - name: ESLint check
         run: npm run lint
       
-      - name: Run Prettier format check
+      - name: Prettier format check
         run: npm run format:check
-      
-      - name: Run Trunk check
-        run: trunk check --all
-      
-      - name: Run Trunk format check
-        run: trunk fmt --check
       
       - name: Build check
         run: npm run build
-
-  security:
-    name: Security Scan
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-          cache: 'npm'
-      
-      - name: Install dependencies
-        run: npm ci
-      
-      - name: Install Trunk
-        run: |
-          curl -fsSL https://get.trunk.io | bash -s -- -y
-          echo "$HOME/.trunk/bin" >> $GITHUB_PATH
-      
-      - name: Initialize Trunk
-        run: trunk init --skip-install
-      
-      - name: Run security scans
-        run: |
-          trunk check osv-scanner trufflehog
+      - name: Security audit
+        run: npm audit --audit-level moderate

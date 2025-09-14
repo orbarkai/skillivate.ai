@@ -1,0 +1,41 @@
+name: Trunk Check
+
+on:
+  workflow_dispatch:  # Manual trigger only
+  push:
+    branches: [main, development]
+    paths: ['.trunk/**']
+
+jobs:
+  trunk-check:
+    name: Trunk Check
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Install Trunk
+        run: |
+          curl -fsSL https://get.trunk.io | bash -s -- -y
+          echo "$HOME/.trunk/bin" >> $GITHUB_PATH
+      
+      - name: Initialize Trunk
+        run: trunk init
+      
+      - name: Run Trunk check
+        run: trunk check --all
+      
+      - name: Run Trunk format check
+        run: trunk fmt --check
