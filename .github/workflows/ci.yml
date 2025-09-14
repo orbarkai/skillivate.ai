@@ -7,8 +7,8 @@ on:
     branches: [main, development]
 
 jobs:
-  trunk-check:
-    name: Trunk Check
+  check:
+    name: Code Quality Check
     runs-on: ubuntu-latest
     
     steps:
@@ -31,22 +31,31 @@ jobs:
           curl -fsSL https://get.trunk.io | bash -s -- -y
           echo "$HOME/.trunk/bin" >> $GITHUB_PATH
       
+      - name: Initialize Trunk
+        run: |
+          trunk init --skip-install
+          # Ensure the .trunk directory is properly set up
+          ls -la .trunk/
+      
+      - name: Run TypeScript type check
+        run: npm run type-check
+      
+      - name: Run ESLint
+        run: npm run lint
+      
+      - name: Run Prettier format check
+        run: npm run format:check
+      
       - name: Run Trunk check
         run: trunk check --all
       
       - name: Run Trunk format check
         run: trunk fmt --check
       
-      - name: Type check
-        run: npm run type-check
-      
-      - name: Lint check
-        run: npm run lint
-      
       - name: Build check
         run: npm run build
 
-  security-scan:
+  security:
     name: Security Scan
     runs-on: ubuntu-latest
     
@@ -69,6 +78,9 @@ jobs:
         run: |
           curl -fsSL https://get.trunk.io | bash -s -- -y
           echo "$HOME/.trunk/bin" >> $GITHUB_PATH
+      
+      - name: Initialize Trunk
+        run: trunk init --skip-install
       
       - name: Run security scans
         run: |
