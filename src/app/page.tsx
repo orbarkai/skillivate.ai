@@ -5,6 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Greeting } from "@/components/greeting";
 
 export default function Home() {
   return (
@@ -17,6 +18,9 @@ export default function Home() {
           <p className="text-xl text-muted-foreground mb-12">
             AI-powered personalized courses platform
           </p>
+          <div className="mb-12">
+            <Greeting />
+          </div>
           <div className="grid md:grid-cols-3 gap-6 mb-12">
             <Card>
               <CardHeader>
