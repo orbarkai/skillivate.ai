@@ -5,6 +5,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Greeting } from "@/components/greeting";
+import { SignOutButton } from "@/components/sign-out-button";
 
 export default function Home() {
   return (
@@ -17,6 +19,9 @@ export default function Home() {
           <p className="text-xl text-muted-foreground mb-12">
             AI-powered personalized courses platform
           </p>
+          <div className="mb-12">
+            <Greeting />
+          </div>
           <div className="grid md:grid-cols-3 gap-6 mb-12">
             <Card>
               <CardHeader>
@@ -58,6 +63,7 @@ export default function Home() {
             <Button variant="outline" size="lg">
               Learn More
             </Button>
+            <SignOutButton />
           </div>
           <p className="text-sm text-muted-foreground mt-8">Coming soon...</p>
         </main>
