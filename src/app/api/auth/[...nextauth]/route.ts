@@ -19,9 +19,16 @@ const handler = NextAuth({
         token.sub =
           token.sub ?? `${account.provider}:${account.providerAccountId}`;
       }
-      if (profile?.name) token.name = profile.name as string;
-      if ((profile as any)?.picture)
-        token.picture = (profile as any).picture as string;
+      if (profile && typeof profile === "object") {
+        if ("name" in profile) {
+          const name = (profile as Record<string, unknown>).name;
+          if (typeof name === "string") token.name = name;
+        }
+        if ("picture" in profile) {
+          const picture = (profile as Record<string, unknown>).picture;
+          if (typeof picture === "string") token.picture = picture;
+        }
+      }
       return token;
     },
   },
