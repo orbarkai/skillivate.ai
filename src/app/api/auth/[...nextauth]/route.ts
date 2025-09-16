@@ -16,12 +16,14 @@ const handler = NextAuth({
   callbacks: {
     async jwt({ token, account, profile }) {
       if (account?.provider && account.providerAccountId) {
-        token.sub = token.sub ?? `${account.provider}:${account.providerAccountId}`;
+        token.sub =
+          token.sub ?? `${account.provider}:${account.providerAccountId}`;
       }
       if (profile?.name) token.name = profile.name as string;
-      if ((profile as any)?.picture) token.picture = (profile as any).picture as string;
+      if ((profile as any)?.picture)
+        token.picture = (profile as any).picture as string;
       return token;
-    }
+    },
   },
   events: {
     async signIn({ user, account }) {
