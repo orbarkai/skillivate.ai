@@ -6,6 +6,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Greeting } from "@/components/greeting";
+import { SignOutButton } from "@/components/sign-out-button";
 
 export default function Home() {
   return (
@@ -62,6 +63,7 @@ export default function Home() {
             <Button variant="outline" size="lg">
               Learn More
             </Button>
+            <SignOutButton />
           </div>
           <p className="text-sm text-muted-foreground mt-8">Coming soon...</p>
         </main>
